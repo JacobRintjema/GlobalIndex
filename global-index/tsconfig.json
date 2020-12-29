@@ -19,11 +19,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "allowJs": true,
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  }
+    "strictTemplates": true,
+  },
+  "types": [ "node" ],
+  "typeRoots": [ "../node_modules/@types" ]
 }

@@ -3,14 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TestComponent } from './components/test/test.component';
+import { GlobalIndexMapComponent } from './components/global-index-map/global-index-map.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GlobalIndexMapComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
