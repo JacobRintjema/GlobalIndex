@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import * as Highcharts from "highcharts/highmaps";
 declare var require: any;
 import MapModule from 'highcharts/modules/map';
+import { Country } from 'src/app/enums/Country';
 const worldMap = require('@highcharts/map-collection/custom/world.geo.json');
 
 MapModule(Highcharts);
@@ -27,23 +28,15 @@ export class GlobalIndexMapComponent implements OnInit {
     mapNavigation: {
       enabled: true,
       buttonOptions: {
-        alignTo: 'spacingBox'
+        // alignTo: 'spacingBox'
       }
     },
     colorAxis: {
       min: 0
     },
-    /*
     tooltip: {
-      formatter: function() {
-        return 'Click for information about {point.name}';
-      },
-      backgroundColor: '#FCFFC5',
-      borderColor: 'black',
-      borderRadius: 10,
-      borderWidth: 3,
+      footerFormat: '<span style="font-size: 10px">(Click for details)</span>'
     },
-    */
     series: [{
       name: 'Random Data',
       states: {
@@ -56,6 +49,7 @@ export class GlobalIndexMapComponent implements OnInit {
         format: '{point.name}'
       },
       allAreas: true,
+      type: undefined,
       data: [
         ['fo', 0],
         ['um', 1],

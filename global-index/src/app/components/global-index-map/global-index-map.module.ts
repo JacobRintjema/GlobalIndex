@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { GlobalIndexMapComponent } from './global-index-map.component';
@@ -10,7 +11,8 @@ import { GlobalIndexMapComponent } from './global-index-map.component';
   ],
   imports: [
     HighchartsChartModule,
-    BrowserModule
+    BrowserModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [GlobalIndexMapComponent]

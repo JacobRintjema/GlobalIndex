@@ -1,2 +1,12 @@
-Testing: {{title}}
-<app-global-index-map></app-global-index-map>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <app-global-index-sidenav></app-global-index-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-global-index-header (sidenavToggle)="sidenav.toggle()"></app-global-index-header>
+    <mat-card style="margin:2em;">
+      <app-global-index-map></app-global-index-map>
+      <app-global-index-country-card></app-global-index-country-card>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
