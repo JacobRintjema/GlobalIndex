@@ -3,8 +3,8 @@ import * as Highcharts from "highcharts/highmaps";
 declare var require: any;
 import MapModule from 'highcharts/modules/map';
 import { Country } from 'src/app/enums/Country';
+import { GlobalIndexPopulationDataService } from 'src/app/services/global-index-population-data-service/global-index-population-data.service';
 const worldMap = require('@highcharts/map-collection/custom/world.geo.json');
-
 MapModule(Highcharts);
 
 @Component({
@@ -13,12 +13,14 @@ MapModule(Highcharts);
   styleUrls: ['./global-index-map.component.scss']
 })
 export class GlobalIndexMapComponent implements OnInit {
+  populationData: any[] = [];
+  data: any[] = [];
   chart: any;
   updateFromInput = false;
   Highcharts = Highcharts;
   chartConstructor = "mapChart";
   chartCallback: any;
-  chartOptions = {
+  chartOptions: any = {
     chart: {
       map: worldMap
     },
@@ -38,12 +40,23 @@ export class GlobalIndexMapComponent implements OnInit {
       footerFormat: '<span style="font-size: 10px">(Click for details)</span>'
     },
     series: [{
-      name: 'Random Data',
+      name: 'Population Data',
       states: {
         hover: {
           color: '#BADA55'
         }
       },
+      events: {
+        click: function(e: any) {
+          console.log(e.point['hc-key']);
+          /*
+          if (!($(e.target)[0].textContent)) {
+            console.log('clicked');
+          }
+          */
+        },
+      },
+    
       dataLabels: {
         enabled: true,
         format: '{point.name}'
@@ -264,12 +277,11 @@ export class GlobalIndexMapComponent implements OnInit {
         ['eg', 210],
         ['kg', 211],
         ['np', 212]
-      ]
+      ] 
     }]
   }
 
-
-  constructor() {
+  constructor(private populationService: GlobalIndexPopulationDataService) {
     const self = this;
 
     this.chartCallback = (chart: any) => {
@@ -278,6 +290,113 @@ export class GlobalIndexMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  public getPopulationData(): void {
+    this.populationService.getInfo().subscribe((csv: any) => {
+      csv = csv.split(/\n/);
+
+      var countries: any = {},
+      mapChart: any,
+      mapChart: any,
+      numRegex = /^[0-9\.]+$/,
+      lastCommaRegex = /,\s$/,
+      quoteRegex = /\"/g,
+      categories = this.CSVtoArray(csv[2]).slice(4);
+
+      // Parse the CSV into arrays, one array each country
+      csv.slice(3).forEach( (line: any) => {
+        var row = this.CSVtoArray(line),
+          data = row.slice(4);
+
+        data.forEach(function(val: any, i: any) {
+          val = val.replace(quoteRegex, '');
+          if (numRegex.test(val)) {
+            val = parseInt(val, 10);
+          } else if (!val || lastCommaRegex.test(val)) {
+            val = null;
+          }
+          data[i] = val;
+        });
+
+        countries[row[1]] = {
+          name: row[0],
+          code3: row[1],
+          data: data
+        };
+      });
+      
+      for (var code3 in countries) {
+        if (Object.hasOwnProperty.call(countries, code3)) {
+          var value = null,
+            year,
+            itemData = countries[code3].data,
+            i = itemData.length;
+  
+          while (i--) {
+            if (typeof itemData[i] === 'number') {
+              value = itemData[i];
+              year = categories[i];
+              break;
+            }
+          }
+        }
+        this.data.push({
+          name: countries[code3].name,
+          code3: code3,
+          value: value,
+          year: year
+        });
+      }
+
+      var populationData: any[] = [];
+      // Clean this.data
+      for(var j = 0; j < this.data.length - 1; j++) {
+        const name: string = this.data[j]['name'];
+
+        if(!populationData.includes(name)) {
+          for(var k = j + 1; k < this.data.length - 1; k++) {
+            if(this.data[k]['name'] === name) {
+              
+              var key: string = this.data[j]['hc-key'];
+              var population: number = this.data[k]['value'];
+              populationData.push([
+                key,
+                population
+              ])
+            }
+          }
+        }
+      }
+
+      // populationData.sort((a, b) => (a[0] > b[0]) ? 1 : -1);
+      this.data = populationData;
+      this.chartOptions.series = [{
+        data: this.data,
+        name: 'Population Data',
+        states: {
+          hover: {
+            color: '#BADA55'
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}'
+        },
+        allAreas: true,
+        type: undefined,
+      }];
+      this.updateFromInput = true;
+  
+    });
+    
+  }
+
+  public CSVtoArray(text: string): string[] {
+    return text.replace(/^"/, '')
+      .replace(/",$/, '')
+      .split('","');
   }
 
 }

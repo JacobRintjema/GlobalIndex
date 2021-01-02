@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { GlobalIndexHeaderComponent } from './components/global-index-header/global-index-header.component';
 import { GlobalIndexSidenavComponent } from './components/global-index-sidenav/global-index-sidenav.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { GlobalIndexSidenavComponent } from './components/global-index-sidenav/g
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   ],
   exports: [
     HighchartsChartModule,
