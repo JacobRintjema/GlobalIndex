@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventBusService } from 'src/app/services/EventBusService/event-bus.service';
 
 @Component({
   selector: 'app-global-index-country-card',
@@ -6,8 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./global-index-country-card.component.scss']
 })
 export class GlobalIndexCountryCardComponent implements OnInit {
+  public eventBusData: any;
 
-  constructor() { }
+  constructor(
+    private eventBus: EventBusService
+  ) {
+    this.eventBus.currentData.subscribe((data: any) => {
+      this.eventBusData = data;
+      console.log(this.eventBusData);
+    });
+  }
 
   ngOnInit(): void {
   }

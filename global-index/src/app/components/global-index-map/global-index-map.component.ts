@@ -3,6 +3,7 @@ import * as Highcharts from "highcharts/highmaps";
 declare var require: any;
 import MapModule from 'highcharts/modules/map';
 import { Country } from 'src/app/enums/Country';
+import { EventBusService } from 'src/app/services/EventBusService/event-bus.service';
 import { GlobalIndexPopulationDataService } from 'src/app/services/global-index-population-data-service/global-index-population-data.service';
 const worldMap = require('@highcharts/map-collection/custom/world.geo.json');
 MapModule(Highcharts);
@@ -13,6 +14,7 @@ MapModule(Highcharts);
   styleUrls: ['./global-index-map.component.scss']
 })
 export class GlobalIndexMapComponent implements OnInit {
+  message!: string;
   populationData: any[] = [];
   data: any[] = [];
   chart: any;
@@ -46,14 +48,22 @@ export class GlobalIndexMapComponent implements OnInit {
           color: '#BADA55'
         }
       },
+      /*
+      point: {
+        events: {
+          click: (e: any) => {
+            // console.log(e.point['hc-key']);
+            const key = e.point['key'];
+            this.broadcastCountry(key);
+          },
+        },
+      },
+      */
       events: {
-        click: function(e: any) {
-          console.log(e.point['hc-key']);
-          /*
-          if (!($(e.target)[0].textContent)) {
-            console.log('clicked');
-          }
-          */
+        click: (e: any) => {
+          console.log("Broadcasted key: ", e.point['hc-key']);
+          const key = e.point['key'];
+          this.broadcastCountry(key);
         },
       },
     
@@ -281,7 +291,10 @@ export class GlobalIndexMapComponent implements OnInit {
     }]
   }
 
-  constructor(private populationService: GlobalIndexPopulationDataService) {
+  constructor(
+    private populationService: GlobalIndexPopulationDataService,
+    private eventBus: EventBusService
+  ) {
     const self = this;
 
     this.chartCallback = (chart: any) => {
@@ -397,6 +410,10 @@ export class GlobalIndexMapComponent implements OnInit {
     return text.replace(/^"/, '')
       .replace(/",$/, '')
       .split('","');
+  }
+
+  public broadcastCountry(countryKey: any): void {
+    this.eventBus.emit(countryKey);
   }
 
 }
