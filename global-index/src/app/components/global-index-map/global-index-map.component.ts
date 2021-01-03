@@ -48,25 +48,27 @@ export class GlobalIndexMapComponent implements OnInit {
           color: '#BADA55'
         }
       },
-      /*
+      
       point: {
         events: {
           click: (e: any) => {
-            // console.log(e.point['hc-key']);
-            const key = e.point['key'];
-            this.broadcastCountry(key);
+            console.log("Broadcasted key: ", e.point['hc-key']);
+            const key:string = e.point['key'];
+            this.eventBus.dataSource.next(e);
+            // this.sendMessage(key);
           },
         },
       },
-      */
+      /*
       events: {
         click: (e: any) => {
           console.log("Broadcasted key: ", e.point['hc-key']);
-          const key = e.point['key'];
-          this.broadcastCountry(key);
+          const key:string = e.point['key'];
+          this.eventBus.dataSource.next(key);
+          // this.sendMessage(key);
         },
       },
-    
+      */
       dataLabels: {
         enabled: true,
         format: '{point.name}'
@@ -412,8 +414,14 @@ export class GlobalIndexMapComponent implements OnInit {
       .split('","');
   }
 
+  /*
   public broadcastCountry(countryKey: any): void {
     this.eventBus.emit(countryKey);
   }
+  */
 
+  public sendMessage(key: any): void {
+    console.log("the key", key);
+    this.eventBus.dataSource.next(key);
+  }
 }

@@ -7,6 +7,7 @@ import { EventBusService } from 'src/app/services/EventBusService/event-bus.serv
   styleUrls: ['./global-index-country-card.component.scss']
 })
 export class GlobalIndexCountryCardComponent implements OnInit {
+  /*
   public eventBusData: any;
 
   constructor(
@@ -19,6 +20,22 @@ export class GlobalIndexCountryCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+  */
+  public key: any;
+
+  constructor(private eventBus: EventBusService) {
+    this.eventBus.dataSource.subscribe((data: any) => {
+      this.setKey(data);
+    });
+  }
+
+  ngOnInit(): void {
+    this.key.point['hc-key'] = '';
+  }
+
+  public setKey(data: any) {
+    this.key = data;
   }
 
 }
