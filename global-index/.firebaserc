@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "global-index": {
+      "hosting": {
+        "global-index": [
+          "global-index"
+        ]
+      }
+    }
+  }
+}

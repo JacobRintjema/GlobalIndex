@@ -59,16 +59,6 @@ export class GlobalIndexMapComponent implements OnInit {
           },
         },
       },
-      /*
-      events: {
-        click: (e: any) => {
-          console.log("Broadcasted key: ", e.point['hc-key']);
-          const key:string = e.point['key'];
-          this.eventBus.dataSource.next(key);
-          // this.sendMessage(key);
-        },
-      },
-      */
       dataLabels: {
         enabled: true,
         format: '{point.name}'

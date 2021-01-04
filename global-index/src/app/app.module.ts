@@ -16,6 +16,9 @@ import { GlobalIndexHeaderComponent } from './components/global-index-header/glo
 import { GlobalIndexSidenavComponent } from './components/global-index-sidenav/global-index-sidenav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSidenavModule,
     MatListModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   exports: [
     HighchartsChartModule,

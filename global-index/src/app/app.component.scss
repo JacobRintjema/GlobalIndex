@@ -13,5 +13,12 @@ mat-card {
 .selectCountryCaption {
     margin: 1%;
     margin-left: 2em;
+}
 
+mat-toolbar {
+    margin-bottom: 20px;
+  }
+  
+mat-toolbar > span {
+    margin-left: 10px;
 }
