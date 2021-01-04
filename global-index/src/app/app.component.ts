@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'global-index';
+  messages = this.http.get<any[]>('http://localhost:4201');
+
+  constructor(private http: HttpClient) {
+
+  }
 }

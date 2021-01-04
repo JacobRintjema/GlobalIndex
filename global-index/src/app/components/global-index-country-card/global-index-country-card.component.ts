@@ -23,18 +23,22 @@ export class GlobalIndexCountryCardComponent implements OnInit {
   }
   */
   public key: any;
+  public hasKey: boolean = false;
 
   constructor(private eventBus: EventBusService) {
     this.eventBus.dataSource.subscribe((data: any) => {
-      this.setKey(data);
+      if (data) {
+        this.setKey(data);
+      }
+      
     });
   }
 
   ngOnInit(): void {
-    this.key.point['hc-key'] = '';
   }
 
   public setKey(data: any) {
+    this.hasKey = true;
     this.key = data;
   }
 

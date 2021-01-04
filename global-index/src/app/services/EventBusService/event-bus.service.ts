@@ -17,7 +17,7 @@ export class EventBusService {
   }
   */
 
-  dataSource: BehaviorSubject<string> = new BehaviorSubject('us');
+  dataSource: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor() { }
 }

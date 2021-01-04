@@ -1,12 +1,21 @@
+<div *ngFor="let message of messages | async">
+  {{message.message}}
+</div>
+<!--
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <app-global-index-sidenav></app-global-index-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
+    
+    
     <app-global-index-header (sidenavToggle)="sidenav.toggle()"></app-global-index-header>
-    <mat-card style="margin:2em;">
+    <mat-card>
       <app-global-index-map></app-global-index-map>
+      <h1 class='selectCountryCaption'>Select a Country to view Information:</h1>
       <app-global-index-country-card></app-global-index-country-card>
     </mat-card>
+    
   </mat-sidenav-content>
 </mat-sidenav-container>
+-->
