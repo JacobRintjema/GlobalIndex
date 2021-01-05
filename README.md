@@ -1,1 +1,1 @@
-# GlobalIndex
+# Global Index
