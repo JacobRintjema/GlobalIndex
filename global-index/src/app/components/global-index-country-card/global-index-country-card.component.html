@@ -1,9 +1,14 @@
 <mat-card style="margin:2em;">
-    Country Name: Information
+    <div *ngIf="hasKey">Country Name: {{title[0].name}}</div>
+    <div *ngIf="!hasKey">Country Name: </div>
     <ng-container *ngIf='hasKey'>
         <mat-tab-group mat-align-tabs="center">
-            <mat-tab label="Summary">{{key.point['hc-key']}}</mat-tab>
-            <mat-tab label="Citations">Content 2</mat-tab>
+            <mat-tab label="Summary">
+                <div *ngFor="let data of countryData">{{data.name}} Population: {{data.population}}</div>
+            </mat-tab>
+            <mat-tab label="Citations">
+                <div *ngFor="let data of summaryData">Author: {{data.author}} Citation: {{data.citation}} Summary: {{data.summary}}</div>
+            </mat-tab>
         </mat-tab-group>
     </ng-container>
     <ng-container *ngIf='!hasKey'>

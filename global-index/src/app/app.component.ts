@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +8,12 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   title = 'global-index';
-  ref: any;
-  data: any;
-  name: string = ''
 
-  constructor(private store: AngularFirestore) {
-    // let things = store.collection('countries') as Query;
-    // query.subscribe(console.log);
+  constructor(private titleService: Title) {
+    this.setTitle('Global Index');
+  }
 
-    let things = store.collection('countries', (ref: any) => ref.where('name', '==', 'Canada')).valueChanges();
-    things.subscribe(console.log);
-    this.data = things.subscribe();
-
-    try {
-      this.name = this.data[0];
-    } catch (err) {
-      // ignore
-    }
-
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 }

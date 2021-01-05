@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventBusService } from 'src/app/services/EventBusService/event-bus.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-global-index-country-card',
@@ -7,39 +8,60 @@ import { EventBusService } from 'src/app/services/EventBusService/event-bus.serv
   styleUrls: ['./global-index-country-card.component.scss']
 })
 export class GlobalIndexCountryCardComponent implements OnInit {
-  /*
-  public eventBusData: any;
+  public countryData: any;
+  public summaryData: any
+  public hasKey: boolean = false;
+  public title: any;
 
   constructor(
-    private eventBus: EventBusService
+    private eventBus: EventBusService,
+    private db: AngularFirestore
   ) {
-    this.eventBus.currentData.subscribe((data: any) => {
-      this.eventBusData = data;
-      console.log(this.eventBusData);
-    });
-  }
-
-  ngOnInit(): void {
-  }
-  */
-  public key: any;
-  public hasKey: boolean = false;
-
-  constructor(private eventBus: EventBusService) {
     this.eventBus.dataSource.subscribe((data: any) => {
       if (data) {
-        this.setKey(data);
+        const countryKey: string = data.point['hc-key'];
+
+        // queries for information related to the selected country
+        const countriesQuery = db.collection('countries', (ref: any) => ref.where('key', '==', countryKey)).valueChanges();
+
+        // queries for summaries for the selected country
+        const summariesQuery = db.collection('summaries', (ref: any) => ref.where('key', '==', countryKey)).valueChanges();
+
+        countriesQuery.subscribe(country => {
+          this.initializeCountryData(country);
+          this.updateTitle(country);
+          
+        });
+
+        summariesQuery.subscribe(summary => {
+          if (summary.length > 0) {
+            this.initializeSummaryData(summary);
+          } else {
+            this.noDataError();
+          }
+        });
       }
-      
     });
   }
 
   ngOnInit(): void {
   }
 
-  public setKey(data: any) {
+  public initializeCountryData(data: any) {
     this.hasKey = true;
-    this.key = data;
+    this.countryData = data;
+  }
+
+  public initializeSummaryData(data: any) {
+    this.summaryData = data;
+  }
+
+  public updateTitle(title: any) {
+    this.title = title;
+  }
+
+  public noDataError() {
+    console.log('No summaries available');
   }
 
 }

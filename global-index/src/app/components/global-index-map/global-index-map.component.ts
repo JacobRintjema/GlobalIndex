@@ -52,10 +52,7 @@ export class GlobalIndexMapComponent implements OnInit {
       point: {
         events: {
           click: (e: any) => {
-            console.log("Broadcasted key: ", e.point['hc-key']);
-            const key:string = e.point['key'];
             this.eventBus.dataSource.next(e);
-            // this.sendMessage(key);
           },
         },
       },
@@ -402,16 +399,5 @@ export class GlobalIndexMapComponent implements OnInit {
     return text.replace(/^"/, '')
       .replace(/",$/, '')
       .split('","');
-  }
-
-  /*
-  public broadcastCountry(countryKey: any): void {
-    this.eventBus.emit(countryKey);
-  }
-  */
-
-  public sendMessage(key: any): void {
-    console.log("the key", key);
-    this.eventBus.dataSource.next(key);
   }
 }
