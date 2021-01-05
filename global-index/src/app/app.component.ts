@@ -7,7 +7,6 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'global-index';
 
   constructor(private titleService: Title) {
     this.setTitle('Global Index');

@@ -19,6 +19,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { SummaryCardComponent } from './components/summary-card/summary-card.component';
+import { CitationCardComponent } from './components/citation-card/citation-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     GlobalIndexCountryCardComponent,
     GlobalIndexHeaderComponent,
     GlobalIndexSidenavComponent,
+    SummaryCardComponent,
+    CitationCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,44 @@
 <mat-card style="margin:2em;">
-    <div *ngIf="hasKey">Country Name: {{title[0].name}}</div>
-    <div *ngIf="!hasKey">Country Name: </div>
+    <h1 *ngIf="hasKey">Country: {{title[0].name}}</h1>
+    <h1 *ngIf="!hasKey">Country Name: </h1>
     <ng-container *ngIf='hasKey'>
-        <mat-tab-group mat-align-tabs="center">
-            <mat-tab label="Summary">
-                <div *ngFor="let data of countryData">{{data.name}} Population: {{data.population}}</div>
+        <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="country-tab-icon">topic</mat-icon>
+                    Summary
+                </ng-template>
+                <div *ngFor="let data of summaryData">
+                    <app-summary-card [summaryData]="data" (citation)="getCitationNumber($event)"></app-summary-card>
+                </div>
             </mat-tab>
-            <mat-tab label="Citations">
-                <div *ngFor="let data of summaryData">Author: {{data.author}} Citation: {{data.citation}} Summary: {{data.summary}}</div>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="country-tab-icon">link</mat-icon>
+                    Citations
+                </ng-template>
+                <div *ngFor="let data of summaryData">
+                    <app-citation-card [summaryData]="data"></app-citation-card>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </ng-container>
     <ng-container *ngIf='!hasKey'>
         <mat-tab-group mat-align-tabs="center">
-            <mat-tab label="Summary">No Data</mat-tab>
-            <mat-tab label="Citations">Content 2</mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="country-tab-icon">topic</mat-icon>
+                    Summary
+                </ng-template>
+                Select a Country
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon class="country-tab-icon">link</mat-icon>
+                    Citations
+                </ng-template>
+                Content 2
+            </mat-tab>
         </mat-tab-group>
     </ng-container>
 </mat-card>

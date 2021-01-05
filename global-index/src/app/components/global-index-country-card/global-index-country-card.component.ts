@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventBusService } from 'src/app/services/EventBusService/event-bus.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-global-index-country-card',
@@ -12,6 +13,8 @@ export class GlobalIndexCountryCardComponent implements OnInit {
   public summaryData: any
   public hasKey: boolean = false;
   public title: any;
+  public citationId: number = 0;
+  public selectedIndex = 0;
 
   constructor(
     private eventBus: EventBusService,
@@ -64,4 +67,8 @@ export class GlobalIndexCountryCardComponent implements OnInit {
     console.log('No summaries available');
   }
 
+  public getCitationNumber(citationId: any) {
+    this.selectedIndex = 1;
+    console.log(citationId);
+  }
 }
