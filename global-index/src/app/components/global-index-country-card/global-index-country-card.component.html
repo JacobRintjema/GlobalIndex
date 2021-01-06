@@ -2,11 +2,11 @@
     <h1 *ngIf="hasKey">Country: {{title[0].name}}</h1>
     <h1 *ngIf="!hasKey">Country Name: </h1>
     <ng-container *ngIf='hasKey'>
-        <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex">
+        <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedIndex" (selectedTabChange)="onTabGroupClicked($event)">
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="country-tab-icon">topic</mat-icon>
-                    Summary
+                    Articles
                 </ng-template>
                 <div *ngFor="let data of summaryData">
                     <app-summary-card [summaryData]="data" (citation)="getCitationNumber($event)"></app-summary-card>
@@ -18,7 +18,7 @@
                     Citations
                 </ng-template>
                 <div *ngFor="let data of summaryData">
-                    <app-citation-card [summaryData]="data"></app-citation-card>
+                    <app-citation-card [summaryData]="data" [citationId]="citationId"></app-citation-card>
                 </div>
             </mat-tab>
         </mat-tab-group>
@@ -28,11 +28,11 @@
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon class="country-tab-icon">topic</mat-icon>
-                    Summary
+                    Articles
                 </ng-template>
-                Select a Country
+                <h2>There are no articles submitted for this country!</h2>
             </mat-tab>
-            <mat-tab>
+            <mat-tab disabled>
                 <ng-template mat-tab-label>
                     <mat-icon class="country-tab-icon">link</mat-icon>
                     Citations

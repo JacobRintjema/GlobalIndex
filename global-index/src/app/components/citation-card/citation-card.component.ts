@@ -7,10 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CitationCardComponent implements OnInit {
   @Input() summaryData: any;
+  @Input() citationId: any;
+  public isHighlighted: boolean = false;
   
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    
   }
 
 }

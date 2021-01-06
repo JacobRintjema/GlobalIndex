@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EventBusService } from 'src/app/services/EventBusService/event-bus.service';
 
 @Component({
   selector: 'app-summary-card',
@@ -6,12 +7,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./summary-card.component.scss']
 })
 export class SummaryCardComponent implements OnInit {
-  //@Input() summary: string = '';
-  //@Input() title: string = '';
   @Input() summaryData: any;
   @Output() citation = new EventEmitter<number>();
+  public eventBus: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

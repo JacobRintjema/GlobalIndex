@@ -22,6 +22,7 @@ export class GlobalIndexCountryCardComponent implements OnInit {
   ) {
     this.eventBus.dataSource.subscribe((data: any) => {
       if (data) {
+        this.selectedIndex = 0;
         const countryKey: string = data.point['hc-key'];
 
         // queries for information related to the selected country
@@ -37,10 +38,11 @@ export class GlobalIndexCountryCardComponent implements OnInit {
         });
 
         summariesQuery.subscribe(summary => {
+          console.log("length:", summary.length);
           if (summary.length > 0) {
             this.initializeSummaryData(summary);
           } else {
-            this.noDataError();
+            this.hasKey = false;
           }
         });
       }
@@ -63,12 +65,12 @@ export class GlobalIndexCountryCardComponent implements OnInit {
     this.title = title;
   }
 
-  public noDataError() {
-    console.log('No summaries available');
-  }
-
   public getCitationNumber(citationId: any) {
     this.selectedIndex = 1;
-    console.log(citationId);
+    this.citationId = citationId;
+  }
+
+  public onTabGroupClicked(event: any) {
+    this.selectedIndex = event.index;
   }
 }
