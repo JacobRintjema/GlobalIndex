@@ -1,5 +1,8 @@
 <mat-card>
+    <!--
     <div>Title: {{summaryData.title}}</div>
     <div>Author: {{summaryData.author}}</div>
     <div>Url: {{summaryData.url}}</div>
+    -->
+    <div [innerHTML]="summaryData.citation" class="citationText"></div>
 </mat-card>

@@ -1,18 +1,13 @@
 .summaryText {
-    display: inline-block;
     margin: 0;
-    width: 80%;
-}
-
-.test {
-    display: inline-block;
-    margin: 0;
-    vertical-align: middle;
+    line-height: 1.6;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 .citationButton {
-    display: inline-block;
+    float: right;
+    padding-top: 5%;
     margin: 0;
-    width: 20%;
     vertical-align: top;
 }

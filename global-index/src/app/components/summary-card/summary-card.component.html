@@ -1,6 +1,5 @@
 <mat-card>
-    <div>Title: {{summaryData.title}}</div>
-    <div class="summaryText">Summary: {{summaryData.summary}}</div>
+    <div class="summaryText" [innerHTML]="summaryData.summary"></div>
     <div class="citationButton">
         <button mat-button (click)="routeCitation(summaryData.id)">
             View Citation

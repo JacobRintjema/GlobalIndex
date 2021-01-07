@@ -38,6 +38,8 @@ export class GlobalIndexCountryCardComponent implements OnInit {
         });
 
         summariesQuery.subscribe(summary => {
+          console.log("summary:", summary);
+
           console.log("length:", summary.length);
           if (summary.length > 0) {
             this.initializeSummaryData(summary);
@@ -58,6 +60,22 @@ export class GlobalIndexCountryCardComponent implements OnInit {
   }
 
   public initializeSummaryData(data: any) {
+    // for linebreaks
+    let tempSummaryText = data[0].summary.replaceAll("\\n", "<br>");
+    // for bullet points
+    tempSummaryText = tempSummaryText.replaceAll("_ul", "<ul>");
+    tempSummaryText = tempSummaryText.replaceAll("_/ul", "</ul>");
+    tempSummaryText = tempSummaryText.replaceAll("_li", "<li>");
+    tempSummaryText = tempSummaryText.replaceAll("_/li", "</li>");
+
+    // numbered points
+    let tempCitationData = data[0].citation.replaceAll("_ol", "<ol>");
+    tempCitationData = tempCitationData.replaceAll("_/ol", "</ol>");
+    tempCitationData = tempCitationData.replaceAll("_li", "<li>");
+    tempCitationData = tempCitationData.replaceAll("_/li", "</li>");
+
+    data[0].summary = tempSummaryText;
+    data[0].citation = tempCitationData;
     this.summaryData = data;
   }
 
