@@ -5,7 +5,6 @@
 - It enables users to access summarized and referenceable public health journal articles by country through Firebase Cloud Firestore.
 - The interactive data is visualized through Highcharts charting library and Angular Material
 
-The web page is currently in development, you can find the link here:
-Link: https://global-index.web.app/
+The web page is currently in development, you can find the link here: https://global-index.web.app/
 
 Countries with Data: Nepal, Philippines, Bhutan
